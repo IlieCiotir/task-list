@@ -36,4 +36,14 @@
       border-top: 1px solid grey;
     }
   }
+
+  .task-pane {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    width: 80%;
+    > mat-card {
+      width: 250px;
+    }
+  }
 }

@@ -1,0 +1,44 @@
+<form [formGroup]="taskForm" (ngSubmit)="submitTask()">
+    <div class="field">
+        <label for="title">Title:</label>
+        <input id="title" formControlName="title" />
+        <small *ngIf="taskForm.controls.title.invalid">{{taskForm.controls.title.errors | json}}</small>
+    </div>
+    <div class="field">
+        <label for="description">Description:</label>
+        <textarea id="description" formControlName="description"></textarea>
+    </div>
+    <div class="field">
+        <label for="dueDate">Due date:</label>
+        <input id="dueDate" formControlName="dueDate" type="date" />
+    </div>
+    <div class="field">
+        <label for="done">Done:</label>
+        <input id="done" formControlName="done" type="checkbox" />
+    </div>
+    <div class="field">
+        <label for="importance">Importance:</label>
+        <select id="importance" formControlName="importance">
+            <option value="low">Low</option>
+            <option value="normal">Normal</option>
+            <option value="high">High</option>
+        </select>
+    </div>
+    <div class="field-group" formGroupName="asignee">
+        <div class="field">
+            <label for="firstName">First name:</label>
+            <input id="firstName" formControlName="firstName" />
+            <small *ngIf="taskForm.controls.asignee.controls.firstName.invalid">
+                {{taskForm.controls.asignee.controls.firstName.errors | json}}</small>
+        </div>
+    </div>
+    <div class="subscriber-list" formArrayName="subscribers">
+        <button (click)="addSubscriber()" type="button">Add Subscriber</button>
+        <div *ngFor="let subscriber of subscribers.controls; index as index" class="field">
+            <label [for]="index">Due date:</label>
+            <input [id]="index" [formControlName]="index" type="email" />
+        </div>
+    </div>
+    {{taskForm.errors | json}}
+    <button type="submit" [disabled]="taskForm.invalid">Submit</button>
+</form>
