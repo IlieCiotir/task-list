@@ -9,6 +9,8 @@ import { provideEffects } from '@ngrx/effects';
 import * as fromTaskStore from './reducers';
 import { TaskListEffects } from './task-manager/task-list/model/task-list.effects';
 import { taskListFeature } from './task-manager/task-list/model/task-list.reducer';
+import { taskEditorFeature } from './task-manager/task-editor/model/task-editor.reducer';
+import { TaskEditorEffects } from './task-manager/task-editor/model/task-editor.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,5 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideEffects(),
     provideState(taskListFeature),
     provideEffects(TaskListEffects),
+    provideState(taskEditorFeature),
+    provideEffects(TaskEditorEffects)
   ]
 };

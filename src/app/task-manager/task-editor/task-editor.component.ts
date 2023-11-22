@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Task, TaskService } from '../task-service/task.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { TaskEditorActions } from './model/task-editor.actions';
+import { selectTaskEditorState } from './model/task-editor.selectors';
 
 @Component({
   selector: 'app-task-editor',
@@ -31,28 +34,40 @@ export class TaskEditorComponent {
     private taskService: TaskService,
     private router: Router,
     private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private store: Store) {
 
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    const task = this.taskService.tasks.find(task => task.id === id);
-    if (task) {
-      this.taskForm.reset();
-      this.taskForm.patchValue(task);
+    //const task = this.taskService.tasks.find(task => task.id === id);
+    if (id) {
+      // this.taskForm.reset();
+      //this.taskForm.patchValue(task);
+      this.store.dispatch(TaskEditorActions.loadTaskEditors({ id }))
+    } {
+      this.store.dispatch(TaskEditorActions.addTask())
     }
+
+    this.taskForm.reset();
+    this.store.select(selectTaskEditorState)
+      .subscribe(({ task, loading }) => {
+        if (loading) {
+          this.taskForm.disable();
+        } else {
+          this.taskForm.enable();
+        }
+        this.taskForm.patchValue(task)
+      })
 
   }
 
   submitTask() {
     console.log(this.taskForm);
 
-    if (this.taskForm.value.id != '') {
-      this.taskService.updateTask(this.taskForm.value as Task);
-    } else {
-      this.taskService.createTask(this.taskForm.value as Task);
-    }
+    this.store.dispatch(TaskEditorActions.saveTask({ task: this.taskForm.value as Task }))
 
-    this.router.navigate(['/task']);
+  //  this.router.navigate(['/task']);
   }
+
   get subscribers() {
     return this.taskForm.controls.subscribers;
   }
