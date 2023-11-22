@@ -1,29 +1,30 @@
-<form [formGroup]="taskForm" (ngSubmit)="submitTask()">
+<form novalidate *ngIf="taskForm" [ngrxFormState]="taskForm">
     <div class="field">
-        <label for="title">Title:</label>
-        <input id="title" formControlName="title" />
-        <small *ngIf="taskForm.controls.title.invalid">{{taskForm.controls.title.errors | json}}</small>
+        <label [for]="taskForm.controls.title.id">Title:</label>
+        <input [ngrxFormControlState]="taskForm.controls.title" />
+        <small *ngIf="taskForm.controls.title.isInvalid">{{taskForm.controls.title.errors | json}}</small>
     </div>
     <div class="field">
         <label for="description">Description:</label>
-        <textarea id="description" formControlName="description"></textarea>
+        <textarea id="description" [ngrxFormControlState]="taskForm.controls.description"></textarea>
     </div>
     <div class="field">
         <label for="dueDate">Due date:</label>
-        <input id="dueDate" formControlName="dueDate" type="date" />
+        <input id="dueDate" [ngrxFormControlState]="taskForm.controls.dueDate" type="date" />
     </div>
     <div class="field">
         <label for="done">Done:</label>
-        <input id="done" formControlName="done" type="checkbox" />
+        <input id="done" [ngrxFormControlState]="taskForm.controls.done" type="checkbox" />
     </div>
-    <div class="field">
+    <div class="field" *ngIf="taskForm.controls.importance.userDefinedProperties['visible']">
         <label for="importance">Importance:</label>
-        <select id="importance" formControlName="importance">
+        <select id="importance" [ngrxFormControlState]="taskForm.controls.importance">
             <option value="low">Low</option>
             <option value="normal">Normal</option>
             <option value="high">High</option>
         </select>
     </div>
+    <!--
     <div class="field-group" formGroupName="asignee">
         <div class="field">
             <label for="firstName">First name:</label>
@@ -39,6 +40,9 @@
             <input [id]="index" [formControlName]="index" type="email" />
         </div>
     </div>
+    -->
     {{taskForm.errors | json}}
-    <button type="submit" [disabled]="taskForm.invalid">Submit</button>
+
+    {{counter()}}
+    <button type="submit" [disabled]="taskForm.isInvalid" (click)="submitTask()">Submit</button>
 </form>

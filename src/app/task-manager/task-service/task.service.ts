@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { Boxed } from 'ngrx-forms';
 
 export interface Task {
   id: string;
   title: string;
   description: string;
-  dueDate: string | Date;
+  dueDate: string;
   importance: 'low' | 'normal' | 'high';
   done: boolean;
 }
