@@ -46,7 +46,7 @@ export class TaskService {
   }
 
   public loadTasks() {
-    this.notify();
+    return this.http.get<Task[]>(`${environment.api}/tasks`);
   }
 
   public createTask(task: Task) {

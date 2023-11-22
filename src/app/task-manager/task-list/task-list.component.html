@@ -16,3 +16,8 @@
         </mat-card-actions>
     </mat-card>
 </div>
+<h2>{{counter}}</h2>
+<button mat-button color="primary" (click)="incrementCounter()">Increment</button>
+<button mat-button color="primary" (click)="decrementCounter()">Decrement</button>
+
+<button mat-button color="secondary" (click)="updateCounter(5)">Increment 5</button>
