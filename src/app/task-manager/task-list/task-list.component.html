@@ -1,7 +1,7 @@
 <div class="search">
-    <input type="text" placeholder="Search">
+    <input #searchInput type="text" placeholder="Search" (keyup)="searchFor(searchInput.value)">
 </div>
-<div class="task" *ngFor="let task of tasks">
+<div class="task" [class]="task.importance" *ngFor="let task of tasks">
     <div class="header">
         <div class="title">{{task.title}}</div>
         <div class="dueDate">{{task.dueDate | date}}</div>

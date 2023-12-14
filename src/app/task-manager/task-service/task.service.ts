@@ -23,6 +23,11 @@ export class TaskService {
   }
 
   public loadTasks() {
+    this.http.get<Task[]>(`${environment.api}/tasks`)
+      .subscribe(taskList => {
+        this.tasks = taskList;
+        this.tasks$.next(this.tasks);
+      })
 
   }
 
