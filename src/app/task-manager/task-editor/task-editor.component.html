@@ -19,6 +19,27 @@
     <input formControlName="dueDate" type="date" />
     <label for="done">Done</label>
     <input formControlName="done" type="checkbox">
+
+    <div formGroupName="asignee">
+        <h2>Asignee</h2>
+        <label>First name</label>
+        <input formControlName="firstName">
+
+        <label>Last name</label>
+        <input formControlName="lastName">
+    </div>
+
+    <ul formArrayName="subscribers">
+        <li *ngFor="let subscriber of subscribers.controls; let index = index">
+            <label>Subscriber email</label>
+            <input type="email" [formControlName]="index">
+            <small *ngIf="subscriber.invalid">
+                {{subscriber.errors | json}}
+            </small>
+        </li>
+    </ul>
+    <button type="button" (click)="addSubscriber()">Add subscriber</button>
+
     <button type="submit" [disabled]="taskForm.invalid">Submit</button>
 </form>
 

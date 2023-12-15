@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Task, TaskService } from '../task-service/task.service';
 
@@ -20,6 +20,11 @@ export class TaskEditorComponent implements OnInit {
     importance: ['normal'],
     dueDate: [new Date()] as [Date | string],
     done: [false],
+    asignee: this.fb.group({
+      lastName: [''],
+      firstName: ['']
+    }),
+    subscribers: this.fb.array([this.fb.control('', Validators.required)])
   });
 
   constructor(private taskService: TaskService, private router: Router, private fb: FormBuilder, private activated: ActivatedRoute) {
@@ -38,9 +43,17 @@ export class TaskEditorComponent implements OnInit {
     if (id) {
       this.taskService.getTask(id)
         .subscribe(task => {
-          this.taskForm.setValue(task);
+          this.taskForm.patchValue(task);
         })
     }
+  }
+
+  get subscribers() {
+    return this.taskForm.get('subscribers') as FormArray;
+  }
+
+  addSubscriber() {
+    this.taskForm.controls.subscribers.controls.push(this.fb.control('', Validators.required))
   }
 
   submit() {
