@@ -21,7 +21,7 @@ export class TaskListComponent implements AfterViewInit {
   public searchInputField?: ElementRef<HTMLInputElement>;
 
   constructor(private tasksService: TaskService, private router: Router, private activatedRoute: ActivatedRoute) {
-    const urlSearch = this.activatedRoute.snapshot.queryParams['search'];
+    const urlSearch = this.activatedRoute.snapshot.queryParams['search'] || '';
 
     this.searchInput$.subscribe(term => console.log(term));
 
@@ -49,7 +49,7 @@ export class TaskListComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     console.log(`searchInput`, this.searchInputField)
     if (this.searchInputField) {
-      this.searchInputField.nativeElement.value = this.activatedRoute.snapshot.queryParams['search'];;
+      this.searchInputField.nativeElement.value = this.activatedRoute.snapshot.queryParams['search'] || '';
     }
   }
 
