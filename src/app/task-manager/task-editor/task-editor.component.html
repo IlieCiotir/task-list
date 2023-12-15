@@ -1,0 +1,8 @@
+<form #taskForm="ngForm">
+    <label for="title">Title</label>
+    <input name="title" type="text" ngModel>
+    <br/>
+    <label for="description">Description</label>
+    <textarea name="description" ngModel></textarea>
+</form>
+{{taskForm.value | json}}

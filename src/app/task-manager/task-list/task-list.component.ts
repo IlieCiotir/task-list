@@ -4,12 +4,12 @@ import { Task, TaskService } from '../task-service/task.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Subject, combineLatest, merge, of } from 'rxjs';
 import { debounceTime, filter, map, tap } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })

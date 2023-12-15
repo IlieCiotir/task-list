@@ -1,6 +1,9 @@
 <div class="search">
     <input #searchInput type="text" placeholder="Search" (keyup)="searchFor(searchInput.value)">
 </div>
+<div class="">
+    <a routerLink="/add">Add Task</a>
+</div>
 <div class="task" [class]="task.importance" *ngFor="let task of tasks">
     <div class="header">
         <div class="title">{{task.title}}</div>
