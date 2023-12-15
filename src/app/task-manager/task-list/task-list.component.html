@@ -1,5 +1,7 @@
 <div class="search">
-    <input #searchInput type="text" placeholder="Search" (keyup)="searchFor(searchInput.value)">
+    <mat-form-field>
+        <input matInput #searchInput type="text" placeholder="Search" (keyup)="searchFor(searchInput.value)">
+    </mat-form-field>
 </div>
 <div class="">
     <a routerLink="/add">Add Task</a>

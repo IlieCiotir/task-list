@@ -5,11 +5,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { Subject, combineLatest, merge, of } from 'rxjs';
 import { debounceTime, filter, map, tap } from 'rxjs/operators';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { MatInputModule } from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MatInputModule, MatFormFieldModule],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
