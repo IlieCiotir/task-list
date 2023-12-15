@@ -1,21 +1,25 @@
 <form #taskForm="ngForm" (ngSubmit)="submit(taskForm.value)">
     <label for="title">Title</label>
-    <input name="title" type="text" ngModel>
+    <input name="title" #title="ngModel" type="text" ngModel required>
+    <small *ngIf="title.invalid && title.touched">
+        {{title.errors | json}}
+    </small>
     <label for="description">Description</label>
-    <textarea name="description" ngModel></textarea>
+    <textarea name="description" ngModel minlength="5" required></textarea>
     <label for="importance">Importance</label>
-    <select name="importance" ngModel>
+    <select name="importance" ngModel required>
         <option [ngValue]="'low'">Low</option>
         <option ngValue="normal">Normal</option>
         <option ngValue="high">High</option>
     </select>
     <label for="dueDate">Due date</label>
-    <input name="dueDate" type="date" ngModel />
+    <input name="dueDate" type="date" ngModel required />
     <label for="done">Done</label>
     <input name="done" type="checkbox" ngModel>
-    <button type="submit">Submit</button>
+    <button type="submit" [disabled]="taskForm.invalid">Submit</button>
 </form>
 
 <div style="width: 100%;">
     {{taskForm.value | json}}
+    {{taskForm.valid | json}}
 </div>

@@ -32,11 +32,7 @@ export class TaskService {
   }
 
   public createTask(task: Task) {
-    this.http.post<Task>(`${environment.api}/tasks`, task)
-      .subscribe(newTask => {
-        this.tasks = [...this.tasks, newTask];
-        this.notify();
-      })
+    return this.http.post<Task>(`${environment.api}/tasks`, task);
   }
 
   public updateTask(task: Task) {
