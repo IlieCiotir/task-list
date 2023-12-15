@@ -5,6 +5,7 @@ import { TaskEditorComponent } from './task-manager/task-editor/task-editor.comp
 export const routes: Routes = [
     { path: 'tasks', component: TaskListComponent },
     { path: 'myTasks', component: TaskListComponent },
-    { path: 'add', component: TaskEditorComponent},
+    { path: 'add', component: TaskEditorComponent },
+    { path: 'edit/:id', component: TaskEditorComponent },
     { path: "**", redirectTo: "/tasks" }
 ];

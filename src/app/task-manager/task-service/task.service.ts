@@ -35,13 +35,12 @@ export class TaskService {
     return this.http.post<Task>(`${environment.api}/tasks`, task);
   }
 
+  public getTask(id: string) {
+    return this.http.get<Task>(`${environment.api}/tasks/${id}`);
+  }
+
   public updateTask(task: Task) {
-    this.http.put<Task>(`${environment.api}/tasks`, task)
-      .subscribe(updatedTask => {
-        const index = this.tasks.findIndex(t => t.id === updatedTask.id);
-        this.tasks.splice(index, 1, updatedTask);
-        this.notify();
-      });
+    return this.http.put<Task>(`${environment.api}/tasks`, task);
   }
 
   public deleteTask(task: Task) {

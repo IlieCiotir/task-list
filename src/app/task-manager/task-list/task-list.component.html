@@ -4,7 +4,7 @@
 <div class="">
     <a routerLink="/add">Add Task</a>
 </div>
-<div class="task" [class]="task.importance" *ngFor="let task of tasks">
+<div class="task" [class]="task.importance" *ngFor="let task of tasks" [routerLink]="['/edit', task.id]">
     <div class="header">
         <div class="title">{{task.title}}</div>
         <div class="dueDate">{{task.dueDate | date}}</div>
