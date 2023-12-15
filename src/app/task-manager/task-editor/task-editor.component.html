@@ -1,21 +1,24 @@
-<form #taskForm="ngForm" (ngSubmit)="submit(taskForm.value)">
+<form [formGroup]="taskForm" (ngSubmit)="submit()">
     <label for="title">Title</label>
-    <input name="title" #title="ngModel" type="text" ngModel required>
-    <small *ngIf="title.invalid && title.touched">
-        {{title.errors | json}}
+    <input formControlName="title" type="text">
+    <small *ngIf="taskForm.controls.title.invalid && taskForm.controls.title.touched">
+        {{taskForm.controls.title.errors | json}}
     </small>
+
     <label for="description">Description</label>
-    <textarea name="description" ngModel minlength="5" required></textarea>
+    <textarea formControlName="description"></textarea>
+
     <label for="importance">Importance</label>
-    <select name="importance" ngModel required>
-        <option [ngValue]="'low'">Low</option>
-        <option ngValue="normal">Normal</option>
-        <option ngValue="high">High</option>
+    <select formControlName="importance">
+        <option value="'low'">Low</option>
+        <option value="normal">Normal</option>
+        <option value="high">High</option>
     </select>
+    {{taskForm.controls.importance.errors | json}}
     <label for="dueDate">Due date</label>
-    <input name="dueDate" type="date" ngModel required />
+    <input formControlName="dueDate" type="date" />
     <label for="done">Done</label>
-    <input name="done" type="checkbox" ngModel>
+    <input formControlName="done" type="checkbox">
     <button type="submit" [disabled]="taskForm.invalid">Submit</button>
 </form>
 
